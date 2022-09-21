@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '1.9.0'
+}
+
+group 'io.cygert.forceprojecttabs'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    updateSinceUntilBuild = false
+    version = '2022.2.2'
+}
+patchPluginXml {
+    changeNotes = """"""
+}
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>io.cygert.forceprojecttabs</id>
+    <!--suppress PluginXmlCapitalization -->
+    <name>macOS Force Project Tabs</name>
+    <version>1.0</version>
+    <vendor email="mat@cygert.io">Mat Cygert</vendor>
+
+    <description>IntelliJ is capable of opening new projects as tabs on macOS. Unfortunately, the behavior is not consistent. From time to time, a newly opened project appears in a new window. This plugin adds a listener which invokes 'Merge All Project Windows' action whenever a new project is opened.</description>
+
+    <change-notes>This is the initial release of the plugin.</change-notes>
+
+    <idea-version since-build="222"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="io.cygert.forceprojecttabs.MacOsForceProjectTabs"/>
+    </extensions>
+
+    <actions>
+    </actions>
+
+</idea-plugin>
