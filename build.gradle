@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.9.0'
+    id 'org.jetbrains.intellij' version '1.15.0'
 }
 
 group 'io.cygert.forceprojecttabs'
-version '1.0'
+version '2.0'
 
 repositories {
     mavenCentral()
@@ -12,10 +12,12 @@ repositories {
 
 intellij {
     updateSinceUntilBuild = false
-    version = '2022.2.2'
+    version = '2023.1'
 }
 patchPluginXml {
-    changeNotes = """"""
+    changeNotes = """
+    Update minimum required IntelliJ version to 2023.1. Fix deprecated API usage.
+    """
 }
 test {
     useJUnitPlatform()
