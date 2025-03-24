@@ -1,22 +1,28 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.15.0'
+    id 'org.jetbrains.intellij.platform' version "2.4.0"
 }
 
-group 'io.cygert.forceprojecttabs'
-version '2.0'
+group = 'io.cygert.forceprojecttabs'
+version = '2.0'
 
 repositories {
     mavenCentral()
+
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-intellij {
-    updateSinceUntilBuild = false
-    version = '2023.1'
+dependencies {
+    intellijPlatform {
+        intellijIdeaCommunity('2024.3.5')
+    }
 }
+
 patchPluginXml {
     changeNotes = """
-    Update minimum required IntelliJ version to 2023.1. Fix deprecated API usage.
+    Updated the minimum required IntelliJ version to 2024.3.5 due to API deprecation.
     """
 }
 test {
