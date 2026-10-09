@@ -1,10 +1,21 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij.platform' version "2.4.0"
+    id 'org.jetbrains.intellij.platform' version "2.19.0"
 }
 
 group = 'io.cygert.forceprojecttabs'
-version = '2.0'
+version = '2.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of((findProperty('buildJdkVersion') ?: '21') as int)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.compilerArgs += '-Xlint:deprecation'
+}
 
 repositories {
     mavenCentral()
@@ -16,13 +27,24 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity('2024.3.5')
+        if (providers.gradleProperty('localIdePath').isPresent()) {
+            local(providers.gradleProperty('localIdePath').get())
+        } else {
+            def ideVersion = providers.gradleProperty('ideVersion').orElse('2024.3.5').get()
+            if (ideVersion.startsWith('2026.') || ideVersion.startsWith('2025.3')) {
+                intellijIdea(ideVersion)
+            } else {
+                intellijIdeaCommunity(ideVersion)
+            }
+        }
     }
 }
 
 patchPluginXml {
+    sinceBuild = '243.26053'
     changeNotes = """
-    Updated the minimum required IntelliJ version to 2024.3.5 due to API deprecation.
+    Merge newly opened project windows again on IntelliJ IDEA 2025 and 2026.
+    Wait until the project window is visible before invoking the built-in merge action.
     """
 }
 test {
